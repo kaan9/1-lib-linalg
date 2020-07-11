@@ -67,4 +67,5 @@ extern void vec4_normalize(struct vec4 *v);
 		(r)->z = (v)->x * (u)->y - (v)->y * (u)->x;	\
 		(r)->w = 0;					\
 	} while(0)
-#endif
+
+#endif /* VEC4_H */
