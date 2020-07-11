@@ -5,11 +5,6 @@
 
 #include <math.h>
 
-/* 
- * The purpose of this struct is to be able to pass around an array of 4
- * floats as a value. Specifically, to return it from a function and ensure
- * that a function receiving a vec4 is a valid float$ of 4 elements.
- */
 struct vec4 {
 	float x;
 	float y;
@@ -24,8 +19,7 @@ extern void vec4_mul(struct vec4 *self, float c);
 extern void vec4_negate(struct vec4 *v);
 
 extern float vec4_dot(struct vec4 const *v, struct vec4 const *w);
-
-/* only supports 3-dimensional vectors */
+/* for 3-d vectors */
 extern struct vec4 vec4_cross(struct vec4 const *v, struct vec4 const *w);
 
 extern float vec4_mag(struct vec4 const *v); 
