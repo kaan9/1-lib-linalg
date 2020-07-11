@@ -1,5 +1,5 @@
 CC=musl-clang -static -Os
-CFLAGS=-std=c89 -Wall -pedantic
+CFLAGS=-std=c99 -Wall -pedantic
 LDFLAGS=
 DEPS=main.c
 TARGET=main

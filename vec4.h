@@ -1,9 +1,10 @@
-/* VEC4.H --- 4 dimensional vector --- Copyright kbe --- MIT LICENSE */
+/* VEC4.H --- 4 dimensional vector --- copyright kbe --- MIT LICENSE */
 
 #ifndef VEC4_H
 #define VEC4_H
 
 #include <math.h>
+#include "mat4.h"
 
 struct vec4 {
 	float x;
