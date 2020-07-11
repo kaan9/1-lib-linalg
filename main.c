@@ -14,19 +14,19 @@ int main(void)
 	struct vec4 w = v;
 	pvec(&v, &w);
 	struct vec4 vcross;
-	vec4_add(&v, &w);
+	v = vec4_sum(v, w);
 	pvec(&v, &w);
-	vec4_mul(&v, 2.f);
+	v = vec4_mul(v, 2.f);
 	pvec(&v, &w);
-	vec4_negate(&v);
+	v = vec4_negate(v);
 	pvec(&v, &w);
-	c = vec4_dot(&v, &w);
+	c = vec4_dot(v, w);
 	printf("c = %f\n", c);
-	vec4_cross(&v, &w, &vcross);
+	vcross = vec4_cross(v, w);
 	pvec(&v, &vcross);
-	l = vec4_mag(&v);
+	l = vec4_mag(v);
 	printf("l = %f\n", l);
-	vec4_normalize(&v);
+	v = vec4_normalize(v);
 	pvec(&v, &w);
 
 	return 0;
