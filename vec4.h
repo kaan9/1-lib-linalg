@@ -14,9 +14,9 @@ struct vec4 {
 
 extern struct vec4 vec4_sum(struct vec4 v, struct vec4 u);
 
-extern struct vec4 vec4_mul(struct vec4 v, float c);
+extern struct vec4 vec4_prod(struct vec4 v, float c);
 
-extern struct vec4 vec4_negate(struct vec4 v);
+extern struct vec4 vec4_neg(struct vec4 v);
 
 extern float vec4_dot(struct vec4 v, struct vec4 w);
 /* for 3-d vectors */
@@ -34,7 +34,7 @@ extern struct vec4 vec4_normalize(struct vec4 v);
 		(v).w + (u).w	\
 	 })
 
-#define vec4_mul(v, c)		\
+#define vec4_prod(v, c)		\
 	((struct vec4) {	\
 		(v).x * (c),	\
 		(v).y * (c),	\
@@ -42,7 +42,7 @@ extern struct vec4 vec4_normalize(struct vec4 v);
 		(v).w * (c)	\
 	 })
 
-#define vec4_negate(self) 	\
+#define vec4_neg(self) 	\
 	((struct vec4) {	\
 		-((v).x),	\
 		-((v).y),	\
@@ -65,6 +65,6 @@ extern struct vec4 vec4_normalize(struct vec4 v);
 	(sqrtf(vec4_dot((v), (v))))
 
 #define vec4_normalize(v)	\
-	vec4_mul((v), 1.0f / vec4_mag(v))
+	vec4_prod((v), 1.0f / vec4_mag(v))
 
 #endif /* VEC4_H */

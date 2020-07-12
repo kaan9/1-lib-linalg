@@ -16,9 +16,9 @@ int main(void)
 	struct vec4 vcross;
 	v = vec4_sum(v, w);
 	pvec(&v, &w);
-	v = vec4_mul(v, 2.f);
+	v = vec4_prod(v, 2.f);
 	pvec(&v, &w);
-	v = vec4_negate(v);
+	v = vec4_neg(v);
 	pvec(&v, &w);
 	c = vec4_dot(v, w);
 	printf("c = %f\n", c);
