@@ -1,13 +1,13 @@
 CC=musl-clang -static -Os
 CFLAGS=-std=c99 -Wall -pedantic
-LDFLAGS=
+LDFLAGS=-lm
 DEPS=main.c
 TARGET=main
 
 all: clean mat4.o
 
 $(TARGET): $(DEPS)
-	$(CC) $(CFLAGS) $(DEPS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(LDFLAGS)  $(DEPS) -o $(TARGET)
 
 mat4.o:
 	$(CC) $(CFLAGS) -c mat4.c -o mat4.o
