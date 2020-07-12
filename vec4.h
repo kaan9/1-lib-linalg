@@ -14,7 +14,7 @@ struct vec4 {
 
 extern struct vec4 vec4_sum(struct vec4 v, struct vec4 u);
 
-extern struct vec4 vec4_mul(struct vec4 v, struct vec4 u);
+extern struct vec4 vec4_mul(struct vec4 v, float c);
 
 extern struct vec4 vec4_negate(struct vec4 v);
 
