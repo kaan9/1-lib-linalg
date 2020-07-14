@@ -4,13 +4,10 @@ LDFLAGS=-lm
 DEPS=main.c
 TARGET=main
 
-all: clean mat4.o
+all: clean  $(TARGET)
 
 $(TARGET): $(DEPS)
 	$(CC) $(CFLAGS) $(LDFLAGS)  $(DEPS) -o $(TARGET)
-
-mat4.o:
-	$(CC) $(CFLAGS) -c mat4.c -o mat4.o
 
 clean:
 	rm -f *.o $(TARGET)

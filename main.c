@@ -1,5 +1,7 @@
-#include "vec4.h"
 #include <stdio.h>
+
+#include "vec4.h"
+#include "mat4.h"
 
 void pvec(struct vec4 const *v, struct vec4 const *w)
 {
