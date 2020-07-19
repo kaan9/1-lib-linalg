@@ -14,7 +14,15 @@ struct vec4 {
 
 extern struct vec4 vec4_sum(struct vec4 v, struct vec4 u);
 
-extern struct vec4 vec4_prod(struct vec4 v, float c);
+static inline struct vec4 vec4_prod(struct vec4 v, float c)
+{
+	return (struct vec4) {
+		v.x * c,
+		v.y * c,
+		v.z * c,
+		v.w * c
+	 };
+}
 
 extern struct vec4 vec4_neg(struct vec4 v);
 
@@ -32,14 +40,6 @@ extern struct vec4 vec4_normalize(struct vec4 v);
 		(v).y + (u).y,	\
 		(v).z + (u).z,	\
 		(v).w + (u).w	\
-	 })
-
-#define vec4_prod(v, c)		\
-	((struct vec4) {	\
-		(v).x * (c),	\
-		(v).y * (c),	\
-		(v).z * (c),	\
-		(v).w * (c)	\
 	 })
 
 #define vec4_neg(self) 	\

@@ -13,7 +13,15 @@ struct mat4 {
 
 extern struct mat4 mat4_sum(struct mat4 m, struct mat4 n);
 
-extern struct mat4 mat4_prod_f(struct mat4 m, float c);
+static inline struct mat4 mat4_prod_f(struct mat4 m, float c)
+{
+	return (struct mat4) {
+		vec4_prod(m.vs[0], c),
+		vec4_prod(m.vs[1], c),
+		vec4_prod(m.vs[2], c),
+		vec4_prod(m.vs[3], c),
+	};
+}
 
 /* 4x4 matrix times a 4x1 vector */
 extern struct mat4 mat4_prod_mat4(struct mat4 m, struct mat4 n);
@@ -30,22 +38,47 @@ extern struct mat4 mat4_neg(struct mat4 m);
 
 extern struct mat4 mat4_transpose(struct mat4 m);
 
-extern struct vec4 mat4_row(struct mat4 m, unsigned int index);
+static inline struct vec4 mat4_row(struct mat4 m, unsigned int index)
+{
+	return (struct vec4) {			
+		((float *) &m.vs[0])[index],	
+		((float *) &m.vs[1])[index],	
+		((float *) &m.vs[2])[index],	
+		((float *) &m.vs[3])[index],	
+	};
+}
 
 /* diagonal matrix */
-extern struct mat4 mat4_make_diag(float c);
+static inline struct mat4 mat4_make_diag(float c)
+{
+	return (struct mat4) {
+		((struct vec4) {c, 0.0f, 0.0f, 0.0f}),
+	 	((struct vec4) {0.0f, c, 0.0f, 0.0f}),
+		((struct vec4) {0.0f, 0.0f, c, 0.0f}),
+		((struct vec4) {0.0f, 0.0f, 0.0f, c})
+	};
+}
 
 /* Rodrigues's formula for 3d rotation matrix by an angle in degrees around an xyz axis  */
 static inline struct mat4 mat4_make_rot(float angle, float x, float y, float z)
 {
-	float c = cosf((angle / 360.f) * 2.f * 3.1415927f), s = sinf((angle / 360.f) * 2.f * 3.1415927f);
+	float c = cosf((angle / 360.f) * 2.f * 3.1415927f);
+	float s = sinf((angle / 360.f) * 2.f * 3.1415927f);
 	return (struct mat4) {
-		(struct vec4) {c + x * x * (1.f - c), z * s + x * y * (1.f - c),
-			-y * s + x * z * (1.f - c), 0.f},
-		(struct vec4) {-z * s + x * y * (1.f - c), c + y * y * (1.f - c),
-			x * s + y * z * (1.f - c), 0.f},
-		(struct vec4) {y * s + x * z * (1.f - c), -x * s + y * z * (1.f - c),
-			c + z * z * (1.f - c), 0.f},
+		(struct vec4) {
+			c + x * x * (1.f - c),
+			z * s + x * y * (1.f - c),
+			-y * s + x * z * (1.f - c),
+			0.f},
+		(struct vec4) {
+			-z * s + x * y * (1.f - c),
+			c + y * y * (1.f - c),
+			x * s + y * z * (1.f - c),
+			0.f},
+		(struct vec4) {y * s + x * z * (1.f - c),
+			-x * s + y * z * (1.f - c),
+			c + z * z * (1.f - c),
+			0.f},
 		(struct vec4) {0.f, 0.f, 0.f, 1.f}
 	};
 }
@@ -64,14 +97,6 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 		vec4_sum((m).vs[3], (n).vs[3]),	\
 	})
 
-#define mat4_prod_f(m, c)		\
-	((struct mat4) {		\
-		vec4_prod((m).vs[0], (c)),	\
-		vec4_prod((m).vs[1], (c)),	\
-		vec4_prod((m).vs[2], (c)),	\
-		vec4_prod((m).vs[3], (c)),	\
-	})
-
 #define mat4_prod_mat4(m, n)			\
 	((struct mat4) {			\
 		mat4_prod_vec4((m), (n).vs[0]),	\
@@ -80,12 +105,12 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 		mat4_prod_vec4((m), (n).vs[3])	\
 	})
 
-#define mat4_prod_vec4(m, v)			\
-	((struct vec4) {			\
+#define mat4_prod_vec4(m, v)				\
+	((struct vec4) {				\
 		vec4_dot(mat4_row((m), 0), (v)),	\
 		vec4_dot(mat4_row((m), 1), (v)),	\
 		vec4_dot(mat4_row((m), 2), (v)),	\
-		vec4_dot(mat4_row((m), 3), (v))	\
+		vec4_dot(mat4_row((m), 3), (v))		\
 	})
 
 #define vec4_prod_mat4(m, v)		\
@@ -111,22 +136,6 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 	 	mat4_row((m), 1),	\
 	 	mat4_row((m), 2),	\
 	 	mat4_row((m), 3)	\
-	})
-
-#define mat4_row(m, i)				\
-	((struct vec4) {			\
-		((float[]) (m)->vs[0])[(i)],	\
-		((float[]) (m)->vs[1])[(i)],	\
-		((float[]) (m)->vs[2])[(i)],	\
-		((float[]) (m)->vs[3])[(i)],	\
-	})
-
-#define mat4_make_diag(c)				\
-	((struct mat4) {				\
-		((struct vec4) {(c), 0.0f, 0.0f, 0.0f}),	\
-	 	((struct vec4) {0.0f, (c), 0.0f, 0.0f}),	\
-		((struct vec4) {0.0f, 0.0f, (c), 0.0f}),	\
-		((struct vec4) {0.0f, 0.0f, 0.0f, (c)})	\
 	})
 
 #define mat4_make_trans(x, y, z)				\
