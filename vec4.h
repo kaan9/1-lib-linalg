@@ -42,7 +42,7 @@ extern struct vec4 vec4_normalize(struct vec4 v);
 		(v).w + (u).w	\
 	 })
 
-#define vec4_neg(self) 	\
+#define vec4_neg(v) 	\
 	((struct vec4) {	\
 		-((v).x),	\
 		-((v).y),	\

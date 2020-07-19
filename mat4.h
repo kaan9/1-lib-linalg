@@ -113,12 +113,12 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 		vec4_dot(mat4_row((m), 3), (v))		\
 	})
 
-#define vec4_prod_mat4(m, v)		\
-	((struct vec4) {		\
-		vec4_dot((v), (m).vs[0])),	\
-		vec4_dot((v), (m).vs[1])),	\
-		vec4_dot((v), (m).vs[2])),	\
-		vec4_dot((v), (m).vs[3]))	\
+#define vec4_prod_mat4(v, m)			\
+	((struct vec4) {			\
+		vec4_dot((v), (m).vs[0]),	\
+		vec4_dot((v), (m).vs[1]),	\
+		vec4_dot((v), (m).vs[2]),	\
+		vec4_dot((v), (m).vs[3])	\
 	})
 
 
@@ -130,8 +130,8 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 		vec4_neg((m).vs[3]),	\
 	})
 
-#define mat4_transpose(m)	\
-	((struct mat4) {	\
+#define mat4_transpose(m)		\
+	((struct mat4) {		\
 	 	mat4_row((m), 0),	\
 	 	mat4_row((m), 1),	\
 	 	mat4_row((m), 2),	\
@@ -143,15 +143,15 @@ extern struct mat4 mat4_make_scale(float x, float y, float z);
 		((struct vec4) {0.0f, 0.0f, 0.0f, 0.0f}),	\
 	 	((struct vec4) {0.0f, 0.0f, 0.0f, 0.0f}),	\
 		((struct vec4) {0.0f, 0.0f, 0.0f, 0.0f}),	\
-		((struct vec4) {(x), (y), (z), 1.0f})			\
+		((struct vec4) {(x), (y), (z), 1.0f})		\
 	})
 
-#define mat4_make_scale(x, y, z)			\
-	((struct mat4) {				\
+#define mat4_make_scale(x, y, z)				\
+	((struct mat4) {					\
 		((struct vec4) {(x), 0.0f, 0.0f, 0.0f}),	\
 	 	((struct vec4) {0.0f, (y), 0.0f, 0.0f}),	\
 		((struct vec4) {0.0f, 0.0f, (z), 0.0f}),	\
-		((struct vec4) {0.0f, 0.0f, 0.0f, 1})	\
+		((struct vec4) {0.0f, 0.0f, 0.0f, 1})		\
 	})
 
 #endif /* MAT4_H */

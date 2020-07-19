@@ -6,7 +6,7 @@
 
 void pvec(struct vec4 const *v, struct vec4 const *w)
 {
-	printf("1: [ %f | %f | %f | %f ]", v->x, v->y, v->z, v->w);
+	printf("1: [ %f | %f | %f | %f ]\n", v->x, v->y, v->z, v->w);
 	printf("2: [ %f | %f | %f | %f ]\n", w->x, w->y, w->z, w->w);
 }
 
@@ -45,17 +45,42 @@ void pmat(struct mat4 const *m)
 
 void mat4tests()
 {
-	pmat(&mat4_make_diag(1.f));
-	pmat(&mat4_make_diag(0.f));
-	struct mat4 mrot = mat4_make_rot(74.f, 0.f, 1.f, 0.f);
+	struct mat4 m1 = mat4_make_diag(1.f);
+	struct mat4 m0 = mat4_make_diag(0.f);
+	struct mat4 mrot = mat4_make_rot(74.f, 1.f, 1.f, 1.f);
+	struct mat4 mtrans = mat4_make_trans(5.f, 5.f, 10.f);
+	struct mat4 mscale = mat4_make_scale(2.f, 2.f, 1.f);
+
+	struct mat4 msum = mat4_sum(mrot, mtrans);
+	struct mat4 mf = mat4_prod_f(mrot, -2.f);
+	struct vec4 mrow2 = mat4_row(mrot, 1.f);
+	struct mat4 mprod = mat4_prod_mat4(mrot, mscale);
+	struct vec4 mvprod = mat4_prod_vec4(mrot, mrow2);
+	struct vec4 vmprod = vec4_prod_mat4(mrow2, mrot);
+	struct mat4 mrot_tr = mat4_transpose(mrot);
+	struct mat4 mrot_neg = mat4_neg(mrot);
+
+
+
+	pmat(&m1);
+	pmat(&m0);
 	pmat(&mrot);
-	
+	pmat(&mtrans);
+	pmat(&mscale);
+
+	pmat(&msum);
+	pmat(&mf);
+	pvec(&mrow2, &mrow2);
+	pmat(&mprod);
+	pvec(&mvprod, &vmprod);
+	pmat(&mrot_tr);
+	pmat(&mrot_neg);
 }
 
 
 int main(void)
 {
-//	vec4tests();
+	vec4tests();
 	mat4tests();
 	return 0;
 }
