@@ -15,12 +15,12 @@ extern struct mat4 mat4_sum(struct mat4 m, struct mat4 n);
 
 static inline struct mat4 mat4_prod_f(struct mat4 m, float c)
 {
-	return (struct mat4) {
+	return (struct mat4) {{
 		vec4_prod(m.vs[0], c),
 		vec4_prod(m.vs[1], c),
 		vec4_prod(m.vs[2], c),
-		vec4_prod(m.vs[3], c),
-	};
+		vec4_prod(m.vs[3], c)
+	}};
 }
 
 /* 4x4 matrix times a 4x1 vector */
@@ -44,7 +44,7 @@ static inline struct vec4 mat4_row(struct mat4 m, unsigned int index)
 		((float *) &m.vs[0])[index],	
 		((float *) &m.vs[1])[index],	
 		((float *) &m.vs[2])[index],	
-		((float *) &m.vs[3])[index],	
+		((float *) &m.vs[3])[index]	
 	};
 }
 
